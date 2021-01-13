@@ -30,6 +30,7 @@
         <KeyBinding Key="D" Modifiers="Control" Command="{x:Static toggl:KeyboardShortcuts.ToggleManualMode}" />
         <KeyBinding Key="V" Modifiers="Control" Command="{x:Static toggl:KeyboardShortcuts.NewFromPaste}" />
         <KeyBinding Key="Q" Modifiers="Control" Command="{x:Static toggl:KeyboardShortcuts.Quit}" />
+        <KeyBinding Key="P" Modifiers="Control" Command="{x:Static toggl:KeyboardShortcuts.TogglePomodoroTimer}" />
         <KeyBinding Key="OemComma" Modifiers="Control" Command="{x:Static toggl:KeyboardShortcuts.Preferences}" />
     </Window.InputBindings>
 
@@ -82,6 +83,11 @@
                                   Command="{x:Static toggl:KeyboardShortcuts.ToggleMiniTimerVisibility}"
                                   IsCheckable="True"
                                   IsChecked="{Binding IsMiniTimerUsed}"/>
+                        <MenuItem Header="Use pomodoro timer" InputGestureText="Ctrl + P"
+                                  Name="togglPomodoroTimerMenuItem" x:FieldModifier="private"
+                                  Command="{x:Static toggl:KeyboardShortcuts.TogglePomodoroTimer}"
+                                  IsCheckable="True"
+                                  IsChecked="{Binding IsPomodoroTimerEnabled}"/>
                         <Separator Style="{StaticResource {x:Static MenuItem.SeparatorStyleKey}}"/>
                         <MenuItem Header="Toggl Track Tutorial"
                                   Command="{x:Static toggl:KeyboardShortcuts.BasicTutorial}"

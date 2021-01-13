@@ -157,6 +157,7 @@
                            Style="{StaticResource Toggl.TimerDurationText}"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
+                           Foreground="{Binding DurationForeground}"
                            Text="{Binding DurationText}"
                            Visibility="{Binding IsRunning, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 <TextBox x:Name="durationTextBox" x:FieldModifier="private"

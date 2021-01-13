@@ -3,6 +3,7 @@ using ReactiveUI.Fody.Helpers;
 using System;
 using System.Reactive;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Threading;
 using TogglDesktop.AutoCompletion.Items;
 using TogglDesktop.Diagnostics;
@@ -29,6 +30,7 @@ namespace TogglDesktop.ui.ViewModels
 
             Toggl.RunningTimerState.Subscribe(onRunningTimerState);
             Toggl.StoppedTimerState.Subscribe(_ => this.onStoppedTimerState());
+            Toggl.PomodoroTimerState.Subscribe(r => DurationForeground = r ? Brushes.Red : Brushes.Black);
 
             ResetRunningTimeEntry(false, true);
         }
@@ -38,6 +40,9 @@ namespace TogglDesktop.ui.ViewModels
 
         [Reactive]
         public string DurationText { get; set; }
+
+        [Reactive]
+        public SolidColorBrush DurationForeground { get; set; }
 
         [Reactive]
         public bool IsDescriptionChangedNotByUser { get; private set; } = false;

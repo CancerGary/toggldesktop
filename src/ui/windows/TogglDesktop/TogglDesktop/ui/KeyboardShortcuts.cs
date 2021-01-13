@@ -40,6 +40,7 @@ namespace TogglDesktop
                 new CommandBinding(EditRunning, onEditRunning, canExecuteEditRunning),
                 new CommandBinding(BasicTutorial, onBasicTutorial, canExecuteBasicTutorial),
                 new CommandBinding(ToggleMiniTimerVisibility, onToggleMiniTimerVisibility, canExecuteToggleMiniTimerVisibility),
+                new CommandBinding(TogglePomodoroTimer, onTogglePomodoroTimer, canExecuteTogglePomodoroTimer),
                 new CommandBinding(ShowMainWindowFromMiniTimer, onShow),
             };
 
@@ -55,6 +56,7 @@ namespace TogglDesktop
         private static bool isInManualMode { get { return mainWindow.IsInManualMode; } }
         private static bool isLoggedIn { get { return Program.IsLoggedIn; } }
         private static bool isMiniTimerVisible { get { return mainWindow.IsMiniTimerVisible; } }
+        private static bool isPomodoroTimer { get { return mainWindow.IsPomodoroTimer; } }
 
         #endregion
 
@@ -325,6 +327,22 @@ namespace TogglDesktop
         private static void onToggleMiniTimerVisibility(object sender, RoutedEventArgs e)
         {
             mainWindow.SetMiniTimerVisible(!isMiniTimerVisible);
+        }
+
+        #endregion
+        #region TogglePomodoroTimer
+
+        public static readonly RoutedUICommand TogglePomodoroTimer =
+            new RoutedUICommand("", "TogglePomodoroTimer", typeof(Window));
+
+        private static void canExecuteTogglePomodoroTimer(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = isLoggedIn;
+        }
+
+        private static void onTogglePomodoroTimer(object sender, RoutedEventArgs e)
+        {
+            mainWindow.SetPomodoroTimer(!isPomodoroTimer);
         }
 
         #endregion

@@ -88,6 +88,7 @@ namespace TogglDesktop
         public bool IsTracking { get; private set; }
         public bool IsInManualMode { get; private set; }
         public bool IsMiniTimerVisible { get; private set; }
+        public bool IsPomodoroTimer { get; private set; }
 
         public TutorialManager TutorialManager { get; private set; }
 
@@ -439,6 +440,7 @@ namespace TogglDesktop
             this.idleDetectionTimer.IsEnabled = settings.UseIdleDetection;
             this.Topmost = settings.OnTop;
             this.SetManualMode(settings.ManualMode, true);
+            this.SetPomodoroTimer(settings.Pomodoro, true);
         }
 
         private void onDisplayInAppNotification(string title, string text, string button, string url)
@@ -633,6 +635,20 @@ namespace TogglDesktop
             if (!fromApi)
             {
                 Toggl.SetManualMode(manualMode);
+            }
+        }
+
+        public void SetPomodoroTimer(bool pomodoroTimer, bool fromApi = false)
+        {
+            this.IsPomodoroTimer = pomodoroTimer;
+
+            CogwheelMenuViewModel.IsPomodoroTimerEnabled = pomodoroTimer;
+
+            // this.miniTimer.SetManualMode(this.IsInManualMode);
+
+            if (!fromApi)
+            {
+                Toggl.SetPomodoroTimer(pomodoroTimer);
             }
         }
 

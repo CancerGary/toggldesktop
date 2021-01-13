@@ -13,5 +13,8 @@ namespace TogglDesktop.ViewModels
 
         [Reactive]
         public string Email { get; set; }
+
+        [Reactive]
+        public bool IsPomodoroTimerEnabled { get; set; }
     }
 }

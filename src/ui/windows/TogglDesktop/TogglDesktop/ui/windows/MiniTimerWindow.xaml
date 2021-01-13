@@ -69,6 +69,11 @@
                                   Command="{x:Static toggl:KeyboardShortcuts.ToggleMiniTimerVisibility}"
                                   IsCheckable="True"
                                   IsChecked="{Binding IsMiniTimerUsed}"/>
+            <MenuItem Header="Use pomodoro timer" InputGestureText="Ctrl + P"
+                                  Name="togglPomodoroTimerMenuItem" x:FieldModifier="private"
+                                  Command="{x:Static toggl:KeyboardShortcuts.TogglePomodoroTimer}"
+                                  IsCheckable="True"
+                                  IsChecked="{Binding IsPomodoroTimerEnabled}"/>
             <MenuItem Header="Show Toggl Track"
                                   Command="{x:Static toggl:KeyboardShortcuts.ShowMainWindowFromMiniTimer}"/>
             <Separator Style="{StaticResource {x:Static MenuItem.SeparatorStyleKey}}"/>
@@ -98,6 +103,6 @@
                 BlurRadius="14"
                 Opacity="0.28" />
         </Grid.Effect>
-        <toggl:MiniTimer x:Name="timer" x:FieldModifier="private" />
+        <toggl:MiniTimer x:Name="timer" x:FieldModifier="private"/>
     </Grid>
 </mah:MetroWindow>

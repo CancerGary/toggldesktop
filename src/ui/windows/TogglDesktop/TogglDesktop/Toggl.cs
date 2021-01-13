@@ -945,6 +945,8 @@ public static partial class Toggl
 
     public static readonly BehaviorSubject<TogglTimeEntryView?> RunningTimeEntry = new BehaviorSubject<TogglTimeEntryView?>(null);
 
+    public static readonly BehaviorSubject<TogglSettingsView?> SettingsEntry = new BehaviorSubject<TogglSettingsView?>(null);
+
     public static readonly IObservable<Unit> StoppedTimerState =
         RunningTimeEntry
         .Where(te => te == null)
@@ -953,7 +955,11 @@ public static partial class Toggl
         RunningTimeEntry
             .Where(te => te != null)
             .Select(te => te.Value);
-    public static event DisplayTimelineUI OnDisplayTimelineUI = delegate { };
+    public static readonly IObservable<bool> PomodoroTimerState =
+        SettingsEntry
+            .Where(te => te != null)
+            .Select(te => te.Value.Pomodoro);
+        public static event DisplayTimelineUI OnDisplayTimelineUI = delegate { };
     private static void listenToLibEvents()
     {
         toggl_on_show_app(ctx, open =>
@@ -1096,6 +1102,7 @@ public static partial class Toggl
             using (Performance.Measure("Calling OnSettings"))
             {
                 OnSettings(open, marshalStruct<TogglSettingsView>(settings));
+                SettingsEntry.OnNext(marshalStruct<TogglSettingsView>(settings));
             }
         });
 
@@ -1536,6 +1543,12 @@ public static partial class Toggl
         toggl_set_settings_manual_mode(ctx, manualMode);
     }
 
+    public static void SetPomodoroTimer(bool pomodoroTimer)
+    {
+        toggl_set_settings_pomodoro(ctx, pomodoroTimer);
+        toggl_set_settings_pomodoro_break(ctx, true);
+    }
+    
     public static DateTime DateTimeFromUnix(UInt64 unix_seconds)
     {
         return UnixEpoch.AddSeconds(unix_seconds).ToLocalTime().DateTime;
